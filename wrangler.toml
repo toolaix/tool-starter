@@ -1,0 +1,23 @@
+# OpenNext + Cloudflare Workers/Pages skeleton.
+# Pure static tools can ignore this file and use Git-bound Pages with next-on-pages
+# or static export — enable OpenNext only when you need Route Handlers / D1 / Creem webhooks.
+#
+# Daily deploys: Git-bound Cloudflare Pages/Workers.
+# Do NOT `wrangler pages deploy` to production routinely.
+
+name = "tool-starter"
+main = ".open-next/worker.js"
+compatibility_date = "2026-10-17"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+# Create DB once: npx wrangler d1 create tool-starter
+# Then paste database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "tool-starter"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations/d1"

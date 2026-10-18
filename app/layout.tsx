@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { site } from "@/site.config";
+import { SiteNav } from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
@@ -7,6 +10,7 @@ export const metadata: Metadata = {
     template: site.seo.titleTemplate,
   },
   description: site.seo.description,
+  keywords: [...site.keywords],
   metadataBase: new URL(`https://${site.domain}`),
   verification: site.gsc.verificationMeta
     ? { google: site.gsc.verificationMeta }
@@ -19,17 +23,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang={site.locale}>
-      <body style={{ fontFamily: "system-ui, sans-serif", margin: 0 }}>
-        <header style={{ padding: "1rem 1.25rem", borderBottom: "1px solid #eee" }}>
-          <strong>{site.name}</strong>
-        </header>
-        <main style={{ maxWidth: 720, margin: "0 auto", padding: "1.5rem 1.25rem" }}>
+    <html lang={site.locale.slice(0, 2)}>
+      <body>
+        <SiteNav />
+        <main
+          style={{
+            maxWidth: 1040,
+            margin: "0 auto",
+            padding: "2rem 1.25rem 1rem",
+          }}
+        >
           {children}
         </main>
-        <footer style={{ padding: "2rem 1.25rem", color: "#666", fontSize: 14 }}>
-          © {new Date().getFullYear()} {site.name}. Estimates only.
-        </footer>
+        <SiteFooter />
       </body>
     </html>
   );

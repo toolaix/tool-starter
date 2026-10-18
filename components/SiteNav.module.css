@@ -1,0 +1,82 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(12px);
+  background: rgba(248, 250, 252, 0.86);
+  border-bottom: 1px solid var(--line);
+  transition: box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.navScrolled {
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--ink);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #2dd4bf, #0f766e);
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #042f2e;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.links a {
+  color: var(--muted);
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 550;
+  text-decoration: none;
+}
+
+.links a:hover {
+  color: var(--ink);
+  background: rgba(15, 23, 42, 0.04);
+  text-decoration: none;
+}
+
+.cta {
+  background: var(--accent) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+
+.cta:hover {
+  background: var(--accent-strong) !important;
+}

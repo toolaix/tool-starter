@@ -1,47 +1,75 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { site } from "@/site.config";
+import { Reveal } from "@/components/motion/Reveal";
+import styles from "./ToolDemo.module.css";
 
-/** 替换成真实计算器逻辑；此处仅演示交互。 */
+/**
+ * Generic dual-pane tool shell.
+ * Replace the fee math with your calculator or wire an uploader UI for kind=uploader.
+ * Do NOT paste product-specific scoring (e.g. resume ATS) into the template.
+ */
 export function ToolDemo() {
   const [price, setPrice] = useState(40);
   const [cost, setCost] = useState(12);
-  const fee = price * 0.065 + 0.2;
-  const profit = price - cost - fee;
+
+  const { fee, profit, margin } = useMemo(() => {
+    const fee = price * 0.065 + 0.2;
+    const profit = price - cost - fee;
+    const margin = price > 0 ? (profit / price) * 100 : 0;
+    return { fee, profit, margin };
+  }, [price, cost]);
 
   return (
-    <section
-      style={{
-        border: "1px solid #e5e5e5",
-        borderRadius: 12,
-        padding: "1rem",
-        margin: "1.25rem 0",
-      }}
-    >
-      <label style={{ display: "block", marginBottom: 8 }}>
-        Selling price
-        <input
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(Number(e.target.value))}
-          style={{ display: "block", width: "100%", marginTop: 4 }}
-        />
-      </label>
-      <label style={{ display: "block", marginBottom: 8 }}>
-        Your cost
-        <input
-          type="number"
-          value={cost}
-          onChange={(e) => setCost(Number(e.target.value))}
-          style={{ display: "block", width: "100%", marginTop: 4 }}
-        />
-      </label>
-      <p>
-        Est. fees: <strong>${fee.toFixed(2)}</strong>
-      </p>
-      <p>
-        Est. profit: <strong>${profit.toFixed(2)}</strong>
-      </p>
-    </section>
+    <Reveal as="section" id="tool" className={styles.shell}>
+      <div className={styles.panel}>
+        <h2 className={styles.panelTitle}>Inputs</h2>
+        <label className={styles.label}>
+          Selling price (USD)
+          <input
+            className={styles.input}
+            type="number"
+            min={0}
+            step={0.01}
+            value={price}
+            onChange={(e) => setPrice(Number(e.target.value))}
+          />
+        </label>
+        <label className={styles.label}>
+          Your cost (USD)
+          <input
+            className={styles.input}
+            type="number"
+            min={0}
+            step={0.01}
+            value={cost}
+            onChange={(e) => setCost(Number(e.target.value))}
+          />
+        </label>
+        <p className={styles.hint}>
+          Demo formula only — swap for your real model. Free quota:{" "}
+          {site.monetization.freeQuotaLabel}.
+        </p>
+      </div>
+
+      <div className={styles.panel}>
+        <h2 className={styles.panelTitle}>Estimate</h2>
+        <div className={styles.result}>
+          <div className={styles.heroStat}>
+            <p className={styles.heroLabel}>Est. profit</p>
+            <p className={styles.heroValue}>${profit.toFixed(2)}</p>
+          </div>
+          <div className={styles.row}>
+            <span className={styles.muted}>Platform fees</span>
+            <span className={styles.strong}>${fee.toFixed(2)}</span>
+          </div>
+          <div className={styles.row}>
+            <span className={styles.muted}>Margin</span>
+            <span className={styles.strong}>{margin.toFixed(1)}%</span>
+          </div>
+        </div>
+      </div>
+    </Reveal>
   );
 }

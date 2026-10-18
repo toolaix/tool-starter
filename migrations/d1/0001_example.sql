@@ -1,0 +1,42 @@
+-- Example D1 schema sketch (commented). Uncomment + adapt when enabling OpenNext + auth.
+-- Apply: npx wrangler d1 migrations apply <db-name> --local
+--
+-- CREATE TABLE IF NOT EXISTS users (
+--   id TEXT PRIMARY KEY,
+--   email TEXT NOT NULL UNIQUE,
+--   created_at TEXT NOT NULL
+-- );
+--
+-- CREATE TABLE IF NOT EXISTS sessions (
+--   id TEXT PRIMARY KEY,
+--   user_id TEXT NOT NULL,
+--   expires_at TEXT NOT NULL,
+--   created_at TEXT NOT NULL
+-- );
+--
+-- CREATE TABLE IF NOT EXISTS login_tokens (
+--   id TEXT PRIMARY KEY,
+--   email TEXT NOT NULL,
+--   code TEXT NOT NULL,
+--   token TEXT NOT NULL,
+--   expires_at TEXT NOT NULL,
+--   created_at TEXT NOT NULL
+-- );
+--
+-- CREATE TABLE IF NOT EXISTS subscriptions (
+--   user_id TEXT PRIMARY KEY,
+--   status TEXT NOT NULL,
+--   creem_customer_id TEXT,
+--   creem_subscription_id TEXT,
+--   plan TEXT,
+--   current_period_end TEXT,
+--   updated_at TEXT NOT NULL
+-- );
+--
+-- CREATE TABLE IF NOT EXISTS webhook_events (
+--   id TEXT PRIMARY KEY,
+--   received_at TEXT NOT NULL
+-- );
+--
+-- No-op so `wrangler d1 migrations apply` succeeds on a fresh template:
+SELECT 1;
